@@ -18,6 +18,7 @@
     "web:build": "pnpm --filter web build",
     "web:deploy": "pnpm --filter web run deploy",
     "web:check": "pnpm --filter web run check",
+    "web:check:watch": "pnpm --filter web run check:watch",
     "web:typegen:cf": "pnpm --filter web run typegen:cf"
   },
   "devDependencies": {
