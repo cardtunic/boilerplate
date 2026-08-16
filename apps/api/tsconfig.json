@@ -13,6 +13,9 @@
     "module": "es2022",
     /* Specify how TypeScript looks up a file from a given module specifier. */
     "moduleResolution": "Bundler",
+    "paths": {
+      "$api/*": ["./src/*"]
+    },
     /* Enable importing .json files */
     "resolveJsonModule": true,
 
