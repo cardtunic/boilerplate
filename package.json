@@ -1,0 +1,22 @@
+{
+  "name": "boilerplate",
+  "version": "1.0.0",
+  "license": "MIT",
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "dev": "concurrently --names api,api:typegen:hono,web --prefix-colors blue.bold,magenta.bold \"pnpm --filter api dev\" \"pnpm --filter api typegen:hono --watch\" \"pnpm --filter web dev\"",
+    "api:dev": "pnpm --filter api dev",
+    "api:typegen:cf": "pnpm --filter api typegen:cf",
+    "api:typegen:hono": "pnpm --filter api typegen:hono",
+    "api:typegen": "pnpm --filter api typegen",
+    "api:deploy": "pnpm --filter api run deploy",
+    "web:dev": "pnpm --filter web dev",
+    "web:build": "pnpm --filter web build",
+    "web:deploy": "pnpm --filter web run deploy",
+    "web:check": "pnpm --filter web run check",
+    "web:typegen:cf": "pnpm --filter web run typegen:cf"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5"
+  }
+}

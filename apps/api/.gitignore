@@ -1,0 +1,6 @@
+# Local Wrangler environment
+.dev.vars*
+!.dev.vars.example
+
+# Generated Hono RPC types
+dist-types/

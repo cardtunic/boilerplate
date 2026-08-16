@@ -1,0 +1,28 @@
+{
+  "name": "api",
+  "type": "module",
+  "exports": {
+    "./rpc": {
+      "types": "./dist-types/app.d.ts"
+    }
+  },
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "start": "wrangler dev",
+    "test": "vitest",
+    "typegen:cf": "wrangler types",
+    "typegen:hono": "tsc -p tsconfig.types.json",
+    "typegen": "pnpm typegen:cf && pnpm typegen:hono"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.12.4",
+    "@types/node": "^26.2.0",
+    "typescript": "^5.5.2",
+    "vitest": "~3.2.0",
+    "wrangler": "catalog:"
+  },
+  "dependencies": {
+    "hono": "catalog:"
+  }
+}
