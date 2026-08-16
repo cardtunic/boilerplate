@@ -1,5 +1,7 @@
 import { Hono } from "hono";
 
-export const app = new Hono().get("/api/test", (c) => c.text("Hello, World!"));
+export const app = new Hono().get("/api/health", (c) =>
+  c.text("Healthy!", 200),
+);
 
 export type AppType = typeof app;

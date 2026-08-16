@@ -9,6 +9,7 @@
     "lint": "oxlint .",
     "lint:fix": "oxlint --fix .",
     "api:dev": "pnpm --filter api dev",
+    "api:test": "pnpm --filter api test",
     "api:typegen:cf": "pnpm --filter api typegen:cf",
     "api:typegen:hono": "pnpm --filter api typegen:hono",
     "api:typegen": "pnpm --filter api typegen",
