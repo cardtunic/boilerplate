@@ -15,4 +15,11 @@
       "zone_name": "cardtunic.cc",
     },
   ],
+  "hyperdrive": [
+    {
+      "id": "b4477b0d2d1a4a97a007603bf242d01f",
+      "binding": "HYPERDRIVE",
+      "localConnectionString": "postgresql://postgres:root@localhost:5432/postgres",
+    },
+  ],
 }
