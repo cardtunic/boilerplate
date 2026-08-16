@@ -5,4 +5,4 @@
 </script>
 
 <h1>Welcome to SvelteKit</h1>
-<p>{data.greeting}</p>
+<p>{data.health}</p>

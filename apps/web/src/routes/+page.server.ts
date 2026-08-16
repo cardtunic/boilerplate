@@ -3,9 +3,9 @@ import type { PageServerLoad } from "./$types";
 import { api } from "$lib";
 
 export const load: PageServerLoad = async ({ platform }) => {
-  const greeting = await parseResponse(api(platform).test.$get());
+  const health = await parseResponse(api(platform).health.$get());
 
   return {
-    greeting,
+    health,
   };
 };
