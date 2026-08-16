@@ -15,14 +15,14 @@
     "typegen:hono": "tsc -p tsconfig.types.json",
     "typegen": "pnpm typegen:cf && pnpm typegen:hono"
   },
+  "dependencies": {
+    "hono": "catalog:"
+  },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.12.4",
     "@types/node": "^26.2.0",
     "typescript": "^5.5.2",
     "vitest": "~3.2.0",
     "wrangler": "catalog:"
-  },
-  "dependencies": {
-    "hono": "catalog:"
   }
 }
