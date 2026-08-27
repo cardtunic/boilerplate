@@ -1,24 +1,25 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { authClient } from "$lib";
+  import { RegisterDto } from "dto";
+
+  import {
+    createForm,
+    Field,
+    Form,
+    type SubmitHandler,
+  } from "@formisch/svelte";
+
+  const registerForm = createForm({
+    schema: RegisterDto,
+  });
 
   let error = $state("");
-  let loading = $state(false);
 
-  async function handleSubmit(e: SubmitEvent) {
-    e.preventDefault();
+  const submitForm: SubmitHandler<typeof RegisterDto> = async (values) => {
     error = "";
-    loading = true;
 
-    const formData = new FormData(e.currentTarget as HTMLFormElement);
-
-    const name = String(formData.get("name"));
-    const email = String(formData.get("email"));
-    const password = String(formData.get("password"));
-
-    const result = await authClient.signUp.email({ name, email, password });
-
-    loading = false;
+    const result = await authClient.signUp.email(values);
 
     if (result.error) {
       error = result.error.message ?? "Unable to register.";
@@ -26,55 +27,83 @@
     }
 
     await goto("/dashboard");
-  }
+  };
 </script>
 
 <a href="/"><button>Back</button></a>
 <h1>Register</h1>
 
-<form
+<Form
+  of={registerForm}
+  onsubmit={submitForm}
   style="display: flex; flex-direction: column; width: fit-content; gap: 10px;"
-  onsubmit={handleSubmit}
 >
-  <label style="display: flex; flex-direction: column;">
-    Name
-    <input
-      style:margin-top="2px"
-      type="text"
-      name="name"
-      placeholder="Jonh Doe"
-      required
-    />
-  </label>
+  <Field of={registerForm} path={["name"]}>
+    {#snippet children(field)}
+      <label style="display: flex; flex-direction: column;">
+        Name
+        <input
+          {...field.props}
+          value={field.input}
+          style:margin-top="2px"
+          type="text"
+          placeholder="Jonh Doe"
+          required
+        />
+        {#if field.errors?.[0]}<p style="color: red; font-size: 14px;">
+            {field.errors[0]}
+          </p>{/if}
+      </label>
+    {/snippet}
+  </Field>
 
-  <label style="display: flex; flex-direction: column;">
-    E-mail
-    <input
-      style:margin-top="2px"
-      type="email"
-      name="email"
-      placeholder="email@example.com"
-      autocomplete="email"
-      required
-    />
-  </label>
+  <Field of={registerForm} path={["email"]}>
+    {#snippet children(field)}
+      <label style="display: flex; flex-direction: column;">
+        E-mail
+        <input
+          {...field.props}
+          value={field.input}
+          style:margin-top="2px"
+          type="email"
+          placeholder="email@example.com"
+          autocomplete="email"
+          required
+        />
+        {#if field.errors?.[0]}<p style="color: red; font-size: 14px;">
+            {field.errors[0]}
+          </p>{/if}
+      </label>
+    {/snippet}
+  </Field>
 
-  <label style="display: flex; flex-direction: column;">
-    Password
-    <input
-      style:margin-top="2px"
-      type="password"
-      name="password"
-      placeholder="password"
-      autocomplete="current-password"
-      required
-    />
-  </label>
+  <Field of={registerForm} path={["password"]}>
+    {#snippet children(field)}
+      <label style="display: flex; flex-direction: column;">
+        Password
+        <input
+          {...field.props}
+          value={field.input}
+          style:margin-top="2px"
+          type="password"
+          placeholder="password"
+          autocomplete="current-password"
+          required
+        />
+        {#if field.errors?.[0]}<p style="color: red; font-size: 14px;">
+            {field.errors[0]}
+          </p>{/if}
+      </label>
+    {/snippet}
+  </Field>
 
-  <a href="/login" style="font-size: 12px;">Have an account? Login here.</a>
+  <a href="/register" style="font-size: 12px;">No account? Register here.</a>
 
   {#if error}<p>{error}</p>{/if}
-  <button type="submit" disabled={loading}
-    >{loading ? "Registering..." : "Register"}</button
+
+  <button
+    type="submit"
+    disabled={registerForm.isSubmitting || !registerForm.isValid}
+    >Register</button
   >
-</form>
+</Form>

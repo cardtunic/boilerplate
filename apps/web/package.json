@@ -13,7 +13,9 @@
     "typegen:hono": "pnpm --filter api typegen:hono"
   },
   "dependencies": {
+    "@formisch/svelte": "^1.0.0",
     "api": "workspace:*",
+    "dto": "workspace:*",
     "better-auth": "^1.6.29",
     "hono": "catalog:"
   },

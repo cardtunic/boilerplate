@@ -12,3 +12,4 @@ allowBuilds:
 catalog:
   wrangler: ^4.123.0
   hono: ^4.13.2
+  valibot: 1.4.2
