@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently --kill-others-on-fail --names api,web,typegen:hono,db:studio --prefix-colors blue.bold,green.bold,gray --hide typegen:hono,db:studio \"pnpm --filter api dev\" \"pnpm --filter api typegen:hono --watch\" \"pnpm api:db:studio\" \"pnpm web:dev\"",
+    "dev": "concurrently --kill-others-on-fail --names api,typegen:hono,db:studio,web --prefix-colors blue.bold,green.bold,gray --hide typegen:hono,db:studio \"pnpm --filter api dev\" \"pnpm --filter api typegen:hono --watch\" \"pnpm api:db:studio\" \"pnpm web:dev\"",
     "format": "oxfmt .",
     "format:check": "oxfmt --check .",
     "lint": "oxlint .",
