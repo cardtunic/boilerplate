@@ -10,7 +10,8 @@
     "deploy": "wrangler deploy",
     "dev": "wrangler dev",
     "start": "wrangler dev",
-    "db:generate": "drizzle-kit generate --config=./src/database/drizzle.config.ts",
+    "auth:generate": "auth generate --config ./src/auth/auth.config.ts --output ./src/database/schema/auth.ts --adapter drizzle --dialect postgresql --yes",
+    "db:generate": "pnpm auth:generate && drizzle-kit generate --config=./src/database/drizzle.config.ts",
     "db:migrate": "drizzle-kit migrate --config=./src/database/drizzle.config.ts",
     "db:studio": "drizzle-kit studio --config=./src/database/drizzle.config.ts",
     "test": "vitest",
@@ -19,6 +20,8 @@
     "typegen": "pnpm typegen:cf && pnpm typegen:hono"
   },
   "dependencies": {
+    "@better-auth/drizzle-adapter": "^1.6.29",
+    "better-auth": "^1.6.29",
     "drizzle-kit": "^0.31.10",
     "drizzle-orm": "^0.45.2",
     "effect": "^3.22.1",
@@ -32,6 +35,7 @@
     "dotenv": "^17.4.2",
     "typescript": "^5.5.2",
     "vitest": "~3.2.0",
-    "wrangler": "catalog:"
+    "wrangler": "catalog:",
+    "auth": "^1.6.29"
   }
 }

@@ -9,6 +9,7 @@
     "lint": "oxlint .",
     "lint:fix": "oxlint --fix .",
     "api:dev": "pnpm --filter api dev",
+    "api:auth:generate": "pnpm --filter api auth:generate",
     "api:db:generate": "pnpm --filter api db:generate",
     "api:db:migrate": "pnpm --filter api db:migrate",
     "api:db:studio": "pnpm --filter api db:studio",
