@@ -16,7 +16,7 @@
       </a>
     </div>
 
-    <CuboidIcon class="size-7 mb-3" />
+    <CuboidIcon class="size-7 mb-3 text-primary" />
 
     <p class="text-lg font-semibold">
       {page.route.id === "/(auth)/login" ? "Welcome back" : "Welcome"} to
