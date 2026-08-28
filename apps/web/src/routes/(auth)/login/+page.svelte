@@ -5,87 +5,84 @@
 
   import {
     createForm,
-    Field,
+    Field as FormField,
     Form,
     type SubmitHandler,
+    setErrors,
   } from "@formisch/svelte";
+
+  import { LockIcon } from "@lucide/svelte";
+  import Input from "$lib/components/ui/input/input.svelte";
+  import FieldLayout from "$lib/components/form/fieldLayout.svelte";
+  import Button from "$lib/components/ui/button/button.svelte";
 
   const loginForm = createForm({
     schema: LoginDto,
   });
 
-  let error = $state("");
-
   const submitForm: SubmitHandler<typeof LoginDto> = async ({
     email,
     password,
   }) => {
-    error = "";
-
     const result = await authClient.signIn.email({ email, password });
 
     if (result.error) {
-      error = result.error.message ?? "Unable to sign in.";
-      return;
+      return setErrors(loginForm, {
+        path: ["email"],
+        errors: ["Incorrect e-mail or password"],
+      });
     }
 
     await goto("/dashboard");
   };
 </script>
 
-<a href="/"><button>Back</button></a>
-<h1>Login</h1>
-
 <Form
   of={loginForm}
   onsubmit={submitForm}
-  style="display: flex; flex-direction: column; width: fit-content; gap: 10px;"
+  class="flex flex-col gap-4 max-w-sm w-full"
 >
-  <Field of={loginForm} path={["email"]}>
+  <FormField of={loginForm} path={["email"]}>
     {#snippet children(field)}
-      <label style="display: flex; flex-direction: column;">
-        E-mail
-        <input
+      <FieldLayout label="E-mail" errors={field.errors} {...field.props}>
+        <Input
           {...field.props}
+          id={field.props.name}
           value={field.input}
-          style:margin-top="2px"
           type="email"
           placeholder="email@example.com"
           autocomplete="email"
+          aria-invalid={!!field.errors?.[0]}
           required
         />
-        {#if field.errors?.[0]}<p style="color: red; font-size: 14px;">
-            {field.errors[0]}
-          </p>{/if}
-      </label>
+      </FieldLayout>
     {/snippet}
-  </Field>
+  </FormField>
 
-  <Field of={loginForm} path={["password"]}>
+  <FormField of={loginForm} path={["password"]}>
     {#snippet children(field)}
-      <label style="display: flex; flex-direction: column;">
-        Password
-        <input
+      <FieldLayout label="Password" errors={field.errors} {...field.props}>
+        <Input
           {...field.props}
+          id={field.props.name}
           value={field.input}
-          style:margin-top="2px"
           type="password"
-          placeholder="password"
+          placeholder="***********"
           autocomplete="current-password"
+          aria-invalid={!!field.errors?.[0]}
           required
         />
-        {#if field.errors?.[0]}<p style="color: red; font-size: 14px;">
-            {field.errors[0]}
-          </p>{/if}
-      </label>
+      </FieldLayout>
     {/snippet}
-  </Field>
+  </FormField>
 
-  <a href="/register" style="font-size: 12px;">No account? Register here.</a>
-
-  {#if error}<p>{error}</p>{/if}
-
-  <button type="submit" disabled={loginForm.isSubmitting || !loginForm.isValid}
-    >Login</button
+  <a
+    href="/register"
+    class="text-xs text-center my-2 underline underline-offset-3 decoration-dotted decoration-primary hover:opacity-80"
+    >No account? Register here.</a
   >
+
+  <Button type="submit" disabled={loginForm.isSubmitting || !loginForm.isValid}
+    >Login <LockIcon />
+  </Button>
 </Form>

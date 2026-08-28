@@ -7,103 +7,95 @@
     createForm,
     Field,
     Form,
+    setErrors,
     type SubmitHandler,
   } from "@formisch/svelte";
+  import Button from "$lib/components/ui/button/button.svelte";
+
+  import { SquarePenIcon } from "@lucide/svelte";
+  import Input from "$lib/components/ui/input/input.svelte";
+  import FieldLayout from "$lib/components/form/fieldLayout.svelte";
 
   const registerForm = createForm({
     schema: RegisterDto,
   });
 
-  let error = $state("");
-
   const submitForm: SubmitHandler<typeof RegisterDto> = async (values) => {
-    error = "";
-
     const result = await authClient.signUp.email(values);
 
     if (result.error) {
-      error = result.error.message ?? "Unable to register.";
-      return;
-    }
-
-    await goto("/dashboard");
+      switch (result.error.code) {
+        case "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL":
+          setErrors(registerForm, {
+            errors: ["An account with this email already exists"],
+            path: ["email"],
+          });
+      }
+    } else await goto("/dashboard");
   };
 </script>
-
-<a href="/"><button>Back</button></a>
-<h1>Register</h1>
 
 <Form
   of={registerForm}
   onsubmit={submitForm}
-  style="display: flex; flex-direction: column; width: fit-content; gap: 10px;"
+  class="flex flex-col gap-4 max-w-sm w-full"
 >
   <Field of={registerForm} path={["name"]}>
     {#snippet children(field)}
-      <label style="display: flex; flex-direction: column;">
-        Name
-        <input
+      <FieldLayout label="Name" errors={field.errors} {...field.props}>
+        <Input
           {...field.props}
           value={field.input}
-          style:margin-top="2px"
           type="text"
           placeholder="Jonh Doe"
+          aria-invalid={!!field.errors?.[0]}
           required
         />
-        {#if field.errors?.[0]}<p style="color: red; font-size: 14px;">
-            {field.errors[0]}
-          </p>{/if}
-      </label>
+      </FieldLayout>
     {/snippet}
   </Field>
 
   <Field of={registerForm} path={["email"]}>
     {#snippet children(field)}
-      <label style="display: flex; flex-direction: column;">
-        E-mail
-        <input
+      <FieldLayout label="E-mail" errors={field.errors} {...field.props}>
+        <Input
           {...field.props}
           value={field.input}
-          style:margin-top="2px"
           type="email"
           placeholder="email@example.com"
           autocomplete="email"
+          aria-invalid={!!field.errors?.[0]}
           required
         />
-        {#if field.errors?.[0]}<p style="color: red; font-size: 14px;">
-            {field.errors[0]}
-          </p>{/if}
-      </label>
+      </FieldLayout>
     {/snippet}
   </Field>
 
   <Field of={registerForm} path={["password"]}>
     {#snippet children(field)}
-      <label style="display: flex; flex-direction: column;">
-        Password
-        <input
+      <FieldLayout label="Password" errors={field.errors} {...field.props}>
+        <Input
           {...field.props}
           value={field.input}
-          style:margin-top="2px"
           type="password"
-          placeholder="password"
+          placeholder="***********"
           autocomplete="current-password"
+          aria-invalid={!!field.errors?.[0]}
           required
         />
-        {#if field.errors?.[0]}<p style="color: red; font-size: 14px;">
-            {field.errors[0]}
-          </p>{/if}
-      </label>
+      </FieldLayout>
     {/snippet}
   </Field>
 
-  <a href="/register" style="font-size: 12px;">No account? Register here.</a>
+  <a
+    href="/login"
+    class="text-xs text-center my-2 underline underline-offset-3 decoration-dotted decoration-primary hover:opacity-80"
+    >Already have na account? Login here.</a
+  >
 
-  {#if error}<p>{error}</p>{/if}
-
-  <button
+  <Button
     type="submit"
     disabled={registerForm.isSubmitting || !registerForm.isValid}
-    >Register</button
-  >
+    >Register <SquarePenIcon />
+  </Button>
 </Form>
