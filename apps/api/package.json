@@ -21,9 +21,11 @@
   },
   "dependencies": {
     "@better-auth/drizzle-adapter": "^1.6.29",
+    "@hono/standard-validator": "^0.4.0",
     "better-auth": "^1.6.29",
     "drizzle-kit": "^0.31.10",
     "drizzle-orm": "^0.45.2",
+    "dto": "workspace:*",
     "effect": "^3.22.1",
     "hono": "catalog:",
     "pg": "^8.23.0"
@@ -32,10 +34,10 @@
     "@cloudflare/vitest-pool-workers": "^0.12.4",
     "@types/node": "^26.2.0",
     "@types/pg": "^8.21.0",
+    "auth": "^1.6.29",
     "dotenv": "^17.4.2",
     "typescript": "^5.5.2",
     "vitest": "~3.2.0",
-    "wrangler": "catalog:",
-    "auth": "^1.6.29"
+    "wrangler": "catalog:"
   }
 }

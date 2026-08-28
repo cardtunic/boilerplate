@@ -5,9 +5,6 @@
     "moduleResolution": "bundler",
     "strict": true,
     "noEmit": true,
-    "paths": {
-      "$dto/*": ["./src/*"],
-    },
   },
   "include": ["src/**/*.ts"],
 }

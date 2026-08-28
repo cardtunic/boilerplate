@@ -35,6 +35,9 @@ importers:
       '@better-auth/drizzle-adapter':
         specifier: ^1.6.29
         version: 1.6.29(@better-auth/core@1.6.29(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(@cloudflare/workers-types@4.20260702.1)(better-call@1.4.0(zod@4.4.3))(jose@6.2.9)(kysely@0.29.5)(nanostores@1.5.0))(@better-auth/utils@0.4.2)(drizzle-orm@0.45.2(@cloudflare/workers-types@4.20260702.1)(@types/pg@8.21.0)(kysely@0.29.5)(pg@8.23.0))
+      '@hono/standard-validator':
+        specifier: ^0.4.0
+        version: 0.4.0(@standard-schema/spec@1.1.0)(hono@4.13.2)
       better-auth:
         specifier: ^1.6.29
         version: 1.6.29(@cloudflare/workers-types@4.20260702.1)(@sveltejs/kit@2.70.2(@sveltejs/vite-plugin-svelte@7.3.0(svelte@5.56.9)(vite@7.3.6(@types/node@26.2.0)(jiti@2.7.0)(lightningcss@1.33.0)(tsx@4.23.12)))(svelte@5.56.9)(typescript@5.9.3)(vite@7.3.6(@types/node@26.2.0)(jiti@2.7.0)(lightningcss@1.33.0)(tsx@4.23.12)))(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(@cloudflare/workers-types@4.20260702.1)(@types/pg@8.21.0)(kysely@0.29.5)(pg@8.23.0))(pg@8.23.0)(svelte@5.56.9)(vitest@3.2.7(@types/node@26.2.0)(jiti@2.7.0)(lightningcss@1.33.0)(tsx@4.23.12))
@@ -44,6 +47,9 @@ importers:
       drizzle-orm:
         specifier: ^0.45.2
         version: 0.45.2(@cloudflare/workers-types@4.20260702.1)(@types/pg@8.21.0)(kysely@0.29.5)(pg@8.23.0)
+      dto:
+        specifier: workspace:*
+        version: link:../../packages/dto
       effect:
         specifier: ^3.22.1
         version: 3.22.1
@@ -87,12 +93,18 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.3.3
         version: 4.3.3(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.23.12))
+      '@tanstack/svelte-query':
+        specifier: ^6.1.48
+        version: 6.1.48(svelte@5.56.9)
       better-auth:
         specifier: ^1.6.29
         version: 1.6.29(@cloudflare/workers-types@4.20260702.1)(@sveltejs/kit@2.70.2(@sveltejs/vite-plugin-svelte@7.3.0(svelte@5.56.9)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.23.12)))(svelte@5.56.9)(typescript@6.0.3)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.23.12)))(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(@cloudflare/workers-types@4.20260702.1)(@types/pg@8.21.0)(kysely@0.29.5)(pg@8.23.0))(pg@8.23.0)(svelte@5.56.9)(vitest@3.2.7(@types/node@26.2.0)(jiti@2.7.0)(lightningcss@1.33.0)(tsx@4.23.12))
       hono:
         specifier: 'catalog:'
         version: 4.13.2
+      neverthrow:
+        specifier: ^8.2.0
+        version: 8.2.0
       tailwindcss:
         specifier: ^4.3.3
         version: 4.3.3
@@ -1166,6 +1178,12 @@ packages:
       typescript:
         optional: true
 
+  '@hono/standard-validator@0.4.0':
+    resolution: {integrity: sha512-MxOm1asDh9j7c1D0KiWwppSbFgAQxTRO4YEhjMrJn3lF1BIcXenPdgjSGKDRfQmZdaTaMA8slQLETgVOKyJxFw==}
+    peerDependencies:
+      '@standard-schema/spec': ^1.0.0
+      hono: '>=4.11.2'
+
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
     engines: {node: '>=18'}
@@ -2162,6 +2180,14 @@ packages:
     peerDependencies:
       vite: ^5.2.0 || ^6 || ^7 || ^8
 
+  '@tanstack/query-core@5.102.8':
+    resolution: {integrity: sha512-ZNjkJ33CqvPNec/6lZBnHqLc3EVGPZ9ySLhYahU9TcuRFdmwXewuj0c4hwSWcGHqEUwcSrKeZ+oGcvPBqXcQcg==}
+
+  '@tanstack/svelte-query@6.1.48':
+    resolution: {integrity: sha512-X+d2LvUImIf1OQiNIlJ5AfHcXrVwKMMvuC1a/6VZclkgg7Td9mSnvZrbpWowR3TFHrzFY80PHVwm+u8End7c3Q==}
+    peerDependencies:
+      svelte: ^5.25.0
+
   '@types/chai@5.2.3':
     resolution: {integrity: sha512-Mw558oeA9fFbv65/y4mHtXDs9bPnFMZAL/jxdPFUpOHHIXX91mcgEHbS5Lahr+pwZFR8A7GQleRWeI6cGFC2UA==}
 
@@ -2934,6 +2960,10 @@ packages:
   nanostores@1.5.0:
     resolution: {integrity: sha512-E0SrU7uLV/k4E6YbBIpQNDnRj00vgE5wlutM1sYVSAXDtHQosiRCGS9eKMKyiGg4ChXfDiJmTB+NCR3yXr6UAw==}
     engines: {node: ^20.0.0 || >=22.0.0}
+
+  neverthrow@8.2.0:
+    resolution: {integrity: sha512-kOCT/1MCPAxY5iUV3wytNFUMUolzuwd/VF/1KCx7kf6CutrOsTie+84zTGTpgQycjvfLdBBdvBvFLqFD2c0wkQ==}
+    engines: {node: '>=18'}
 
   node-fetch-native@1.6.7:
     resolution: {integrity: sha512-g9yhqoedzIUm0nTnTqAQvueMPVOuIY16bqgAJJC8XOOubYFNwz6IER9qs0Gq2Xd0+CecCKFjtdDTMA4u4xG06Q==}
@@ -4281,6 +4311,11 @@ snapshots:
     optionalDependencies:
       typescript: 6.0.3
 
+  '@hono/standard-validator@0.4.0(@standard-schema/spec@1.1.0)(hono@4.13.2)':
+    dependencies:
+      '@standard-schema/spec': 1.1.0
+      hono: 4.13.2
+
   '@img/colour@1.1.0': {}
 
   '@img/sharp-darwin-arm64@0.34.5':
@@ -4926,6 +4961,13 @@ snapshots:
       '@tailwindcss/oxide': 4.3.3
       tailwindcss: 4.3.3
       vite: 8.2.1(@types/node@26.2.0)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.23.12)
+
+  '@tanstack/query-core@5.102.8': {}
+
+  '@tanstack/svelte-query@6.1.48(svelte@5.56.9)':
+    dependencies:
+      '@tanstack/query-core': 5.102.8
+      svelte: 5.56.9
 
   '@types/chai@5.2.3':
     dependencies:
@@ -5648,6 +5690,10 @@ snapshots:
   nanoid@3.3.18: {}
 
   nanostores@1.5.0: {}
+
+  neverthrow@8.2.0:
+    optionalDependencies:
+      '@rollup/rollup-linux-x64-gnu': 4.62.4
 
   node-fetch-native@1.6.7: {}
 
