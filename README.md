@@ -11,6 +11,7 @@ The starter includes a complete email/password authentication flow and a protect
 - [Effect](https://effect.website/) for backend services and error handling
 - [Better Auth](https://www.better-auth.com/) for authentication
 - [Drizzle ORM](https://orm.drizzle.team/) and PostgreSQL
+- [Formisch](https://formisch.dev/) and [Valibot](https://valibot.dev/) for typed forms and validation
 - [TanStack Query](https://tanstack.com/query) and [neverthrow](https://github.com/supermacro/neverthrow)
 - [Tailwind CSS](https://tailwindcss.com/) and [shadcn-svelte](https://www.shadcn-svelte.com/)
 - [Cloudflare Workers](https://workers.cloudflare.com/) and Hyperdrive
@@ -19,6 +20,8 @@ The starter includes a complete email/password authentication flow and a protect
 ## Included Features
 
 - Registration, login, logout, and session-protected pages
+- SSR through SvelteKit's Cloudflare adapter, including server-side auth guards
+- Formisch forms backed by shared Valibot schemas
 - Better Auth tables and committed Drizzle migrations
 - Shared Valibot DTOs for frontend and backend validation
 - Generated Hono types consumed directly by the web app
@@ -125,6 +128,25 @@ pnpm api:typegen:hono
 ```
 
 The root `pnpm dev` command watches these declarations automatically.
+
+## Forms and Validation
+
+Login, registration, and the protected hash example use Formisch for form state, submission, and field-level errors. Their schemas come from the shared `packages/dto` workspace package, where Valibot defines both runtime validation and the corresponding TypeScript types.
+
+The API consumes those same schemas through Hono's standard validator. This keeps browser validation and API validation aligned without duplicating request models.
+
+## Server-Side Rendering
+
+The web application supports SvelteKit SSR and targets Cloudflare Workers through `@sveltejs/adapter-cloudflare`.
+
+API access works in both rendering environments:
+
+- In the browser, the typed Hono client calls same-origin `/api` routes. Vite proxies those requests to the local API during development.
+- During SSR, the web Worker calls the API Worker directly through the `API` service binding, avoiding a public network round trip.
+- Server-side API calls can forward the incoming cookie header so authenticated loads retain the user's session.
+- Server layout loads resolve sessions and redirect users before rendering protected or auth-only pages.
+
+The environment-aware client is implemented in `apps/web/src/lib/api.ts`, while server-side session loading is handled by `apps/web/src/lib/server/getUserSession.ts`.
 
 ## Database Changes
 
