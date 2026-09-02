@@ -5,6 +5,5 @@ import type { HashTextDto } from "dto";
 
 export const hashTextMutationOpts = mutationOptions({
   mutationKey: ["hash-text"],
-  mutationFn: (payload: HashTextDto) =>
-    callApi(api().hash.$post, { json: payload }),
+  mutationFn: (payload: HashTextDto) => callApi(api().hash.$post, { json: payload }),
 });

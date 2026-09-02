@@ -5,8 +5,7 @@ export function createServerAuthClient(
   platform: RequestEvent["platform"],
   req: RequestEvent["request"],
 ) {
-  if (!platform)
-    throw new Error("Couldn't create auth client without Cloudflare platform.");
+  if (!platform) throw new Error("Couldn't create auth client without Cloudflare platform.");
 
   return createAuthClient({
     baseURL: "https://api.internal",

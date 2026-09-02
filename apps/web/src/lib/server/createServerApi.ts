@@ -2,12 +2,8 @@ import type { RequestEvent } from "@sveltejs/kit";
 import { hc } from "hono/client";
 import type { AppType } from "api/rpc";
 
-export function createServerApi(
-  platform: RequestEvent["platform"],
-  req: RequestEvent["request"],
-) {
-  if (!platform)
-    throw Error("Couldn't create api without Cloudflare platform.");
+export function createServerApi(platform: RequestEvent["platform"], req: RequestEvent["request"]) {
+  if (!platform) throw Error("Couldn't create api without Cloudflare platform.");
 
   return hc<AppType>("https://api.internal", {
     fetch: (input: URL | RequestInfo, init?: RequestInit) => {
