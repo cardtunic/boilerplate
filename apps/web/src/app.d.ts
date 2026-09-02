@@ -7,10 +7,7 @@ declare global {
     // interface PageData {}
     // interface PageState {}
     interface Platform {
-      env: {
-        API: Fetcher;
-        ASSETS: Fetcher;
-      };
+      env: Cloudflare.Env;
     }
   }
 }

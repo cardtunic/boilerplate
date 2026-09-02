@@ -6,7 +6,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "prepare": "svelte-kit sync || echo ''",
-    "check": "pnpm typegen:hono && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check": "pnpm typegen:hono && pnpm typegen:cf && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "pnpm typegen:hono && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "deploy": "vite build && wrangler deploy",
     "typegen:cf": "wrangler types",
