@@ -10,9 +10,7 @@ import { createHash } from "node:crypto";
 export const app = new Hono<AppEnv>()
   .get("/api/health", (c) => c.text("Healthy!", 200))
   .all("/api/auth/*", (c) =>
-    c.env.runtime.runPromise(
-      Auth.pipe(Effect.map((auth) => auth.handler(c.req.raw))),
-    ),
+    c.env.runtime.runPromise(Auth.pipe(Effect.map((auth) => auth.handler(c.req.raw)))),
   )
   /**
    * Route to demonstrate how the Hono RPC translate the different
@@ -33,9 +31,7 @@ export const app = new Hono<AppEnv>()
 
     return c.json(
       {
-        hash: createHash("sha256")
-          .update(c.req.valid("json").text)
-          .digest("hex"),
+        hash: createHash("sha256").update(c.req.valid("json").text).digest("hex"),
       },
       200,
     );

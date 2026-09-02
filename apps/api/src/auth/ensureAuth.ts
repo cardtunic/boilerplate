@@ -5,9 +5,7 @@ import { Effect } from "effect";
 
 export const ensureAuth = createMiddleware<AppEnv>(async (c, next) => {
   const result = await c.env.runtime.runPromise(
-    Auth.pipe(
-      Effect.map((auth) => auth.api.getSession({ headers: c.req.raw.headers })),
-    ),
+    Auth.pipe(Effect.map((auth) => auth.api.getSession({ headers: c.req.raw.headers }))),
   );
 
   if (!result) return c.body("Unauthorized", 401);

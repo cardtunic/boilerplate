@@ -1,16 +1,10 @@
 import { DatabaseError } from "$api/database/errors/databaseError";
-import {
-  type PgErrorCode,
-  pgErrorCodes,
-} from "$api/database/errors/pgErrorCodes";
+import { type PgErrorCode, pgErrorCodes } from "$api/database/errors/pgErrorCodes";
 import { DrizzleQueryError } from "drizzle-orm";
 import { DatabaseError as PgDatabaseError } from "pg";
 
 export function makeDatabaseError(error: unknown) {
-  if (
-    error instanceof DrizzleQueryError &&
-    error.cause instanceof PgDatabaseError
-  ) {
+  if (error instanceof DrizzleQueryError && error.cause instanceof PgDatabaseError) {
     const code = error.cause.code as PgErrorCode;
     const message = pgErrorCodes[code]?.message;
 

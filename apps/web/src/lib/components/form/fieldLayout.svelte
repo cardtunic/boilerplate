@@ -17,7 +17,5 @@
 
   {@render children?.()}
 
-  {#if errors?.[0]}<Field.Error
-      errors={errors.map((message) => ({ message }))}
-    />{/if}
+  {#if errors?.[0]}<Field.Error errors={errors.map((message) => ({ message }))} />{/if}
 </Field.Field>

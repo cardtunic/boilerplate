@@ -26,18 +26,13 @@ type ClientHandler = (
   ...args: never[]
 ) => Promise<ClientResponse<unknown, StatusCode, ResponseFormat>>;
 
-async function callApi<T extends ClientHandler>(
-  handler: T,
-  ...args: Parameters<T>
-) {
+async function callApi<T extends ClientHandler>(handler: T, ...args: Parameters<T>) {
   const result = await ResultAsync.fromPromise(
     parseResponse(handler(...args)),
     (unknownError: unknown) => {
       const detailedError = unknownError as DetailedError;
 
-      const data = (
-        detailedError.detail as { data: InferErrorResponse<T> } | undefined
-      )?.data;
+      const data = (detailedError.detail as { data: InferErrorResponse<T> } | undefined)?.data;
 
       return (
         data || {

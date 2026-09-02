@@ -1,7 +1,4 @@
-import type {
-  EitherDatabaseClientFn,
-  TransactionContextShape,
-} from "$api/database/database.defs";
+import type { EitherDatabaseClientFn, TransactionContextShape } from "$api/database/database.defs";
 import type { DatabaseError } from "$api/database/errors/databaseError";
 import { makeDatabaseError } from "$api/database/errors/makeDatabaseError";
 import * as schema from "$api/database/schema";
@@ -114,15 +111,11 @@ export default class Database extends Effect.Service<Database>()("Database", {
      */
     function makeQuery<A, E, R, Input = never>(
       queryFn: (
-        execute: <T>(
-          fn: EitherDatabaseClientFn<T>,
-        ) => Effect.Effect<T, DatabaseError>,
+        execute: <T>(fn: EitherDatabaseClientFn<T>) => Effect.Effect<T, DatabaseError>,
         input: Input,
       ) => Effect.Effect<A, E, R>,
     ) {
-      return (
-        ...args: [Input] extends [never] ? [] : [input: Input]
-      ): Effect.Effect<A, E, R> => {
+      return (...args: [Input] extends [never] ? [] : [input: Input]): Effect.Effect<A, E, R> => {
         const input = args[0] as Input;
 
         return Effect.serviceOption(TransactionContext).pipe(

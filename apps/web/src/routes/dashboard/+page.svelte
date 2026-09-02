@@ -81,12 +81,7 @@
     <div class="flex items-center justify-between p-4">
       <p>Hello, {data.user.name}!</p>
 
-      <Button
-        variant="destructive"
-        size="icon"
-        onclick={handleLogout}
-        disabled={logginOut}
-      >
+      <Button variant="destructive" size="icon" onclick={handleLogout} disabled={logginOut}>
         <LogOutIcon />
       </Button>
     </div>
@@ -96,9 +91,7 @@
     <div class="flex flex-col gap-4 p-4">
       <hgroup>
         <h2 class="text-lg font-semibold mb-1">Hash the text</h2>
-        <p class="text-sm text-muted-foreground">
-          Test this protected API endpoint
-        </p>
+        <p class="text-sm text-muted-foreground">Test this protected API endpoint</p>
       </hgroup>
 
       <Form of={hashTextForm} onsubmit={submitText}>

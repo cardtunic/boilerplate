@@ -1,7 +1,4 @@
-import type {
-  PgErrorCode,
-  PgErrorMessage,
-} from "$api/database/errors/pgErrorCodes";
+import type { PgErrorCode, PgErrorMessage } from "$api/database/errors/pgErrorCodes";
 import { Data } from "effect";
 import type { DatabaseError as PgDatabaseError } from "pg";
 

@@ -4,10 +4,7 @@ import Env from "$api/services/env";
 import { Layer, Logger, ManagedRuntime } from "effect";
 
 export function buildRuntime(env: Cloudflare.Env) {
-  const bareLayer = Layer.mergeAll(
-    Layer.provide(Env.Default(env), Logger.pretty),
-    Logger.pretty,
-  );
+  const bareLayer = Layer.mergeAll(Layer.provide(Env.Default(env), Logger.pretty), Logger.pretty);
 
   const baseLayer = Layer.provide(Layer.mergeAll(Database.Default), bareLayer);
 

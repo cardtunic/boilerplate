@@ -20,10 +20,7 @@
     schema: LoginDto,
   });
 
-  const submitForm: SubmitHandler<typeof LoginDto> = async ({
-    email,
-    password,
-  }) => {
+  const submitForm: SubmitHandler<typeof LoginDto> = async ({ email, password }) => {
     const result = await authClient.signIn.email({ email, password });
 
     if (result.error) {
@@ -37,11 +34,7 @@
   };
 </script>
 
-<Form
-  of={loginForm}
-  onsubmit={submitForm}
-  class="flex flex-col gap-4 max-w-sm w-full"
->
+<Form of={loginForm} onsubmit={submitForm} class="flex flex-col gap-4 max-w-sm w-full">
   <FormField of={loginForm} path={["email"]}>
     {#snippet children(field)}
       <FieldLayout label="E-mail" errors={field.errors} {...field.props}>

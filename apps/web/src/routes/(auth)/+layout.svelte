@@ -6,9 +6,7 @@
   const { children } = $props();
 </script>
 
-<main
-  class="w-screen min-h-screen flex flex-col justify-center items-center gap-12"
->
+<main class="w-screen min-h-screen flex flex-col justify-center items-center gap-12">
   <header class="flex flex-col items-center max-w-sm w-full">
     <div class="w-full mb-16">
       <a href="/">
@@ -20,9 +18,7 @@
 
     <p class="text-lg font-semibold">
       {page.route.id === "/(auth)/login" ? "Welcome back" : "Welcome"} to
-      <span class="underline underline-offset-3 decoration-2 decoration-primary"
-        >boilerplate</span
-      >
+      <span class="underline underline-offset-3 decoration-2 decoration-primary">boilerplate</span>
     </p>
 
     <p class="text-sm text-muted-foreground">

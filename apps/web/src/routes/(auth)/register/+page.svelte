@@ -3,13 +3,7 @@
   import { authClient } from "$lib";
   import { RegisterDto } from "dto";
 
-  import {
-    createForm,
-    Field,
-    Form,
-    setErrors,
-    type SubmitHandler,
-  } from "@formisch/svelte";
+  import { createForm, Field, Form, setErrors, type SubmitHandler } from "@formisch/svelte";
   import Button from "$lib/components/ui/button/button.svelte";
 
   import { SquarePenIcon } from "@lucide/svelte";
@@ -35,11 +29,7 @@
   };
 </script>
 
-<Form
-  of={registerForm}
-  onsubmit={submitForm}
-  class="flex flex-col gap-4 max-w-sm w-full"
->
+<Form of={registerForm} onsubmit={submitForm} class="flex flex-col gap-4 max-w-sm w-full">
   <Field of={registerForm} path={["name"]}>
     {#snippet children(field)}
       <FieldLayout label="Name" errors={field.errors} {...field.props}>
@@ -93,9 +83,7 @@
     >Already have na account? Login here.</a
   >
 
-  <Button
-    type="submit"
-    disabled={registerForm.isSubmitting || !registerForm.isValid}
+  <Button type="submit" disabled={registerForm.isSubmitting || !registerForm.isValid}
     >Register <SquarePenIcon />
   </Button>
 </Form>

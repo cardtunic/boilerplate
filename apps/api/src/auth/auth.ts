@@ -25,6 +25,4 @@ export default class Auth extends Effect.Service<Auth>()("Auth", {
   }),
 }) {}
 
-export type AuthSession = NonNullable<
-  Awaited<ReturnType<Auth["api"]["getSession"]>>
->;
+export type AuthSession = NonNullable<Awaited<ReturnType<Auth["api"]["getSession"]>>>;

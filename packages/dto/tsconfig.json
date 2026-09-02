@@ -4,7 +4,7 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "strict": true,
-    "noEmit": true,
+    "noEmit": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts"]
 }

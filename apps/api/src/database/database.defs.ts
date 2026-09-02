@@ -20,9 +20,7 @@ export type TransactionClient = PgTransaction<
   ExtractTablesWithRelations<typeof schema>
 >;
 
-export type EitherDatabaseClientFn<T> = (
-  client: DatabaseClient | TransactionClient,
-) => Promise<T>;
+export type EitherDatabaseClientFn<T> = (client: DatabaseClient | TransactionClient) => Promise<T>;
 
 export type TransactionContextShape = <T>(
   fn: EitherDatabaseClientFn<T>,
