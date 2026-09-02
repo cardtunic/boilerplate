@@ -25,6 +25,7 @@ The starter includes a complete email/password authentication flow and a protect
 - Better Auth tables and committed Drizzle migrations
 - Shared Valibot DTOs for frontend and backend validation
 - Generated Hono types consumed directly by the web app
+- Generated Cloudflare binding types exposed through SvelteKit's `App.Platform`
 - Service bindings for server-side Worker-to-Worker API calls
 - A typed `callApi` helper that exposes responses as `Result` values
 - A protected SHA-256 example endpoint at `POST /api/hash`
@@ -114,6 +115,7 @@ The root development command starts the API, Hono type generation, Drizzle Studi
 | `pnpm api:db:studio`   | Open Drizzle Studio                              |
 | `pnpm api:typegen`     | Regenerate Cloudflare and Hono types             |
 | `pnpm web:build`       | Build the web Worker                             |
+| `pnpm web:typegen:cf`  | Regenerate web Worker binding types              |
 
 ## Type-Safe API Flow
 
@@ -142,11 +144,17 @@ The web application supports SvelteKit SSR and targets Cloudflare Workers throug
 API access works in both rendering environments:
 
 - In the browser, the typed Hono client calls same-origin `/api` routes. Vite proxies those requests to the local API during development.
-- During SSR, the web Worker calls the API Worker directly through the `API` service binding, avoiding a public network round trip.
-- Server-side API calls can forward the incoming cookie header so authenticated loads retain the user's session.
-- Server layout loads resolve sessions and redirect users before rendering protected or auth-only pages.
+- During SSR, a separate Hono client calls the API Worker directly through the `API` service binding, avoiding a public network round trip.
+- The server Hono and Better Auth clients forward the incoming cookie header so authenticated requests retain the user's session.
+- Server layout loads use the Better Auth client to resolve sessions and redirect users before rendering protected or auth-only pages.
 
-The environment-aware client is implemented in `apps/web/src/lib/api.ts`, while server-side session loading is handled by `apps/web/src/lib/server/getUserSession.ts`.
+The browser client is implemented in `apps/web/src/lib/api.ts`. Server-side API and authentication clients live in `apps/web/src/lib/server/createServerApi.ts` and `apps/web/src/lib/server/createServerAuthClient.ts`.
+
+Wrangler generates the web Worker's binding declarations in `apps/web/worker-configuration.d.ts`. The web TypeScript configuration includes those declarations so SvelteKit's `App.Platform` can use `Cloudflare.Env` directly. Regenerate them after changing `apps/web/wrangler.jsonc`:
+
+```bash
+pnpm web:typegen:cf
+```
 
 ## Database Changes
 
